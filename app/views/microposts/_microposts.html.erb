@@ -1,0 +1,29 @@
+<ul>
+  <% microposts.each do |micropost| %>
+    <li>
+      <div class='card'>
+        <div class='user-bio'>
+          <% if micropost.user.img.present? %>
+            <%= image_tag micropost.user.img.url, class: 'profile-image-md'  %>
+          <% else %>
+            <%= image_tag 'default_image.png', class: 'profile-image-md' %>
+          <% end %>
+          <%= link_to micropost.user.name, user_path(micropost.user), class: 'name' %>
+        </div>
+        <div class='micropost-content'>
+          <p><%= micropost.content %></p>
+        </div>
+        <div class='micropost-bio'>
+          <p><%= Time.at(micropost.created_at).strftime('%Y-%m-%d %H時%M分') %></p>
+          <% if current_user == micropost.user %>
+            <%= link_to ' | 削除', micropost, method: :delete, data: { confirm: 'You sure?' }, class: 'delete' %>
+          <% end %>
+          <div id="like-button-<%= micropost.id %>">
+              <%= render "microposts/favorite", micropost: micropost %>
+          </div>
+          <p class='like-counts'><%= micropost.favorites.count %></p>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
