@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_05_10_131234) do
 
-  create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8", force: :cascade do |t|
+  create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "favorites", charset: "utf8", force: :cascade do |t|
+  create_table "favorites", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "micropost_id"
     t.datetime "created_at", null: false
@@ -43,7 +46,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "microposts", charset: "utf8", force: :cascade do |t|
+  create_table "microposts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "content"
     t.datetime "created_at", null: false
@@ -51,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["user_id"], name: "index_microposts_on_user_id"
   end
 
-  create_table "records", charset: "utf8", force: :cascade do |t|
+  create_table "records", force: :cascade do |t|
     t.bigint "user_id"
     t.string "label"
     t.time "start_time"
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
-  create_table "relationships", charset: "utf8", force: :cascade do |t|
+  create_table "relationships", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "follow_id"
     t.datetime "created_at", null: false
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["user_id"], name: "index_relationships_on_user_id"
   end
 
-  create_table "supports", charset: "utf8", force: :cascade do |t|
+  create_table "supports", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "record_id"
     t.datetime "created_at", null: false
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_131234) do
     t.index ["user_id"], name: "index_supports_on_user_id"
   end
 
-  create_table "users", charset: "utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.integer "gender"
